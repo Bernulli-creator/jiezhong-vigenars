@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>界中米醋 · 三百五十年古法酿造 | 非遗品牌数字展陈</title>
+<meta name="description" content="界中米醋，始于清康熙十一年（1672），南阳市非物质文化遗产、河南老字号。古法酿造、日晒夜露、冬捞冰，三百五十余年酸香传承。">
+<style>
+/* ============ 设计变量 ============ */
+:root{
+  --paper:#fbf8f2;
+  --paper-2:#f4ece1;
+  --ink:#221912;
+  --ink-2:#6d5b4c;
+  --brown:#5c2c1a;
+  --brown-deep:#31140a;
+  --amber:#c98a41;
+  --gold:#a8853f;
+  --line:#e6dccc;
+  --seal:#b8482f;
+  --serif:"Songti SC","STSong","SimSun","Noto Serif CJK SC","Source Han Serif SC",serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  --radius:16px;
+  --shadow:0 12px 40px -18px rgba(49,20,10,.35);
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:700;line-height:1.3;letter-spacing:.03em;margin:0;}
+p{margin:0 0 1em;}
+::selection{background:var(--amber);color:#fff;}
+
+/* ============ 滚动进度条 ============ */
+#progress{
+  position:fixed;top:0;left:0;height:3px;width:0;
+  background:linear-gradient(90deg,var(--amber),var(--brown));
+  z-index:120;
+  transition:width .1s linear;
+}
+
+/* ============ 导航 ============ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;
+  padding:14px clamp(16px,4vw,44px);
+  transition:background .35s ease, box-shadow .35s ease, padding .35s ease;
+}
+.nav.scrolled{
+  background:rgba(251,248,242,.88);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  box-shadow:0 1px 0 var(--line);
+  padding-top:10px;padding-bottom:10px;
+}
+.brand{display:flex;align-items:center;gap:11px;flex:none;}
+.brand-mark{
+  width:38px;height:38px;border-radius:9px;
+  display:grid;place-items:center;
+  background:linear-gradient(150deg,var(--brown),var(--brown-deep));
+  color:#f2d8b0;font-family:var(--serif);font-size:21px;
+  box-shadow:0 6px 16px -8px rgba(49,20,10,.8);
+}
+.brand-text{display:flex;flex-direction:column;line-height:1.1;}
+.brand-text b{font-family:var(--serif);font-size:17px;letter-spacing:.12em;color:var(--ink);}
+.brand-text em{
+  font-style:normal;font-size:9px;letter-spacing:.28em;
+  color:var(--gold);margin-top:3px;
+}
+.nav.scrolled .brand-text b{color:var(--brown-deep);}
+
+.nav-links{
+  display:flex;gap:4px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-links a{
+  position:relative;
+  padding:7px 14px;border-radius:999px;
+  font-size:14px;letter-spacing:.06em;
+  color:rgba(255,255,255,.78);
+  white-space:nowrap;
+  transition:color .25s, background .25s;
+}
+.nav.scrolled .nav-links a{color:var(--ink-2);}
+.nav-links a:hover,
+.nav-links a.active{color:#fff;background:rgba(255,255,255,.12);}
+.nav.scrolled .nav-links a:hover,
+.nav.scrolled .nav-links a.active{color:var(--brown);background:rgba(92,44,26,.08);}
+
+/* ============ 通用区块 ============ */
+.wrap{width:min(1180px,100% - 48px);margin-inline:auto;}
+.section{padding:clamp(64px,9vw,110px) 0;position:relative;}
+.section-alt{background:var(--paper-2);}
+.section-alt::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line),transparent);
+}
+.sec-head{margin-bottom:clamp(32px,5vw,56px);max-width:780px;}
+.sec-kicker{
+  font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);margin:0 0 14px;font-weight:700;
+  display:flex;align-items:center;gap:10px;
+}
+.sec-kicker::before{
+  content:"";width:26px;height:1px;background:var(--gold);flex:none;
+}
+.sec-title{
+  font-size:clamp(26px,3.6vw,40px);
+  color:var(--brown-deep);
+  margin:0 0 14px;
+}
+.sec-title small{
+  display:block;font-family:var(--sans);font-size:13px;
+  letter-spacing:.22em;color:var(--gold);font-weight:600;
+  margin-top:10px;text-transform:uppercase;
+}
+.sec-desc{color:var(--ink-2);font-size:15.5px;max-width:660px;}
+
+/* ============ 首屏 ============ */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:120px 0 0;
+  background:
+    radial-gradient(120% 90% at 82% 8%, rgba(201,138,65,.34) 0%, rgba(201,138,65,0) 52%),
+    radial-gradient(90% 70% at 8% 92%, rgba(140,60,30,.5) 0%, rgba(140,60,30,0) 60%),
+    linear-gradient(158deg,#2a1108 0%,#4a2213 42%,#5c2c1a 68%,#2c1209 100%);
+  color:#f7ede0;
+  overflow:hidden;
+}
+.hero-grain{
+  position:absolute;inset:0;pointer-events:none;opacity:.2;
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+.hero-char{
+  position:absolute;right:-3vw;bottom:-9vh;
+  font-family:var(--serif);
+  font-size:clamp(260px,44vw,660px);
+  line-height:.78;
+  color:rgba(201,138,65,.075);
+  user-select:none;pointer-events:none;
+}
+.hero-inner{position:relative;z-index:2;width:min(1180px,100% - 48px);margin-inline:auto;}
+
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:12px;letter-spacing:.24em;
+  color:#e6c79a;
+  padding:8px 18px;border-radius:999px;
+  border:1px solid rgba(230,199,154,.32);
+  background:rgba(255,255,255,.05);
+  margin:0 0 30px;
+}
+.hero-eyebrow .dot{
+  width:5px;height:5px;border-radius:50%;background:#e6c79a;
+  box-shadow:0 0 0 4px rgba(230,199,154,.16);
+}
+.hero h1{
+  font-size:clamp(48px,10vw,118px);
+  letter-spacing:.1em;
+  color:#fbf3e6;
+  text-shadow:0 24px 60px rgba(0,0,0,.45);
+  margin:0 0 6px;
+}
+.hero h1 span{color:var(--amber);}
+.hero-sub{
+  font-family:var(--serif);
+  font-size:clamp(15px,1.7vw,20px);
+  color:#dcc3a4;letter-spacing:.14em;margin:0 0 12px;
+}
+.hero-en{
+  font-size:11px;letter-spacing:.34em;color:rgba(220,195,164,.62);
+  text-transform:uppercase;margin:0 0 30px;
+}
+.hero-text{
+  max-width:560px;color:rgba(247,237,224,.74);
+  font-size:15.5px;line-height:2;margin:0 0 36px;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:13px 28px;border-radius:999px;
+  font-size:14px;letter-spacing:.1em;font-weight:600;
+  transition:transform .28s cubic-bezier(.2,.7,.2,1), box-shadow .28s, background .28s, color .28s;
+  cursor:pointer;border:1px solid transparent;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{
+  background:linear-gradient(140deg,#d99a4e,#b06f2c);
+  color:#2a1108;
+  box-shadow:0 14px 32px -16px rgba(217,154,78,.9);
+}
+.btn-primary:hover{box-shadow:0 20px 40px -16px rgba(217,154,78,.95);}
+.btn-ghost{
+  border-color:rgba(247,237,224,.34);color:#f0e3d2;
+  background:rgba(255,255,255,.04);
+}
+.btn-ghost:hover{background:rgba(255,255,255,.12);border-color:rgba(247,237,224,.6);}
+
+/* 首屏数据条 */
+.hero-stats{
+  position:relative;z-index:2;
+  margin-top:auto;
+  border-top:1px solid rgba(247,237,224,.14);
+  background:rgba(0,0,0,.14);
+  backdrop-filter:blur(6px);
+}
+.hero-stats-inner{
+  width:min(1180px,100% - 48px);margin-inline:auto;
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.hero-stat{
+  padding:26px 20px;
+  border-left:1px solid rgba(247,237,224,.1);
+}
+.hero-stat:first-child{border-left:0;padding-left:0;}
+.hero-stat b{
+  display:block;font-family:var(--serif);
+  font-size:clamp(26px,3.4vw,38px);
+  color:#f0d9b5;line-height:1.1;letter-spacing:.02em;
+}
+.hero-stat b i{font-style:normal;font-size:.5em;margin-left:2px;color:var(--amber);}
+.hero-stat span{
+  display:block;margin-top:8px;font-size:11.5px;
+  letter-spacing:.2em;color:rgba(220,195,164,.6);
+}
+.scroll-cue{
+  position:absolute;left:50%;bottom:132px;transform:translateX(-50%);
+  z-index:3;font-size:10.5px;letter-spacing:.32em;
+  color:rgba(230,199,154,.66);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  pointer-events:none;
+}
+.scroll-cue::after{
+  content:"";width:1px;height:44px;
+  background:linear-gradient(180deg,rgba(230,199,154,.7),transparent);
+  animation:cue 2.2s ease-in-out infinite;
+}
+@keyframes cue{
+  0%,100%{opacity:.35;transform:scaleY(.65);transform-origin:top;}
+  50%{opacity:1;transform:scaleY(1);transform-origin:top;}
+}
+
+/* ============ 时间线 ============ */
+.timeline{list-style:none;margin:0;padding:0;position:relative;}
+.timeline::before{
+  content:"";position:absolute;left:0;top:12px;bottom:12px;width:1px;
+  background:linear-gradient(180deg,transparent,var(--line) 8%,var(--line) 92%,transparent);
+}
+.tl-item{
+  position:relative;
+  padding:0 0 42px 40px;
+}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item::before{
+  content:"";position:absolute;left:-4.5px;top:12px;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--paper);border:2px solid var(--amber);
+  transition:transform .3s, background .3s, box-shadow .3s;
+}
+.tl-item:hover::before{
+  transform:scale(1.5);
+  background:var(--amber);
+  box-shadow:0 0 0 6px rgba(201,138,65,.14);
+}
+.tl-year{
+  display:inline-block;
+  font-family:var(--serif);font-size:15px;letter-spacing:.14em;
+  color:var(--gold);margin-bottom:6px;
+  padding:2px 12px;border-radius:6px;
+  background:rgba(168,133,63,.09);
+}
+.tl-body h3{font-size:19px;color:var(--brown-deep);margin:0 0 8px;}
+.tl-body p{color:var(--ink-2);font-size:15px;margin:0;max-width:680px;}
+
+/* ============ 工艺步骤 ============ */
+.craft-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+}
+.craft-card{
+  position:relative;
+  padding:32px 26px 28px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:#fff;
+  overflow:hidden;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s, border-color .35s;
+}
+.craft-card::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:3px;
+  background:linear-gradient(90deg,var(--amber),var(--brown));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .45s cubic-bezier(.2,.7,.2,1);
+}
+.craft-card:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow);
+  border-color:transparent;
+}
+.craft-card:hover::after{transform:scaleX(1);}
+.craft-num{
+  font-family:var(--serif);font-size:42px;line-height:1;
+  color:rgba(201,138,65,.26);margin-bottom:16px;
+  transition:color .35s;
+}
+.craft-card:hover .craft-num{color:rgba(201,138,65,.6);}
+.craft-card h3{font-size:18px;color:var(--brown-deep);margin:0 0 10px;letter-spacing:.08em;}
+.craft-card p{font-size:14px;color:var(--ink-2);margin:0;line-height:1.85;}
+
+/* ============ 产品系列 ============ */
+.series-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+.p-card{
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:#fff;
+  border:1px solid var(--line);
+  transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s;
+}
+.p-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+.p-visual{
+  position:relative;
+  height:180px;
+  display:grid;place-items:center;
+  background:linear-gradient(155deg,#8a4324,#3b1a0f);
+}
+.p-visual::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(80% 60% at 30% 20%, rgba(255,255,255,.22), transparent 60%);
+}
+.p-visual span{
+  position:relative;
+  writing-mode:vertical-rl;
+  font-family:var(--serif);font-size:22px;letter-spacing:.22em;
+  color:#f4ddb9;padding:14px 8px;
+  border:1px solid rgba(244,221,185,.36);border-radius:6px;
+}
+.p-card:nth-child(2) .p-visual{background:linear-gradient(155deg,#9a5a2a,#4a2213);}
+.p-card:nth-child(3) .p-visual{background:linear-gradient(155deg,#7a3a20,#2c1209);}
+.p-card:nth-child(4) .p-visual{background:linear-gradient(155deg,#a86a30,#5c2c1a);}
+.p-card:nth-child(5) .p-visual{background:linear-gradient(155deg,#6d3a22,#31140a);}
+.p-card:nth-child(6) .p-visual{background:linear-gradient(155deg,#8f5230,#3b1a0f);}
+.p-body{padding:22px 22px 26px;}
+.p-body h3{font-size:17px;color:var(--brown-deep);margin:0 0 8px;}
+.p-body p{font-size:13.5px;color:var(--ink-2);margin:0 0 14px;line-height:1.8;}
+.p-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.p-tags i{
+  font-style:normal;font-size:11px;letter-spacing:.08em;
+  padding:3px 10px;border-radius:999px;
+  background:rgba(201,138,65,.1);color:var(--gold);
+}
+
+/* ============ 非遗双栏 ============ */
+.heritage-grid{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,64px);
+  align-items:center;
+}
+.heritage-quote{
+  border-left:3px solid var(--amber);
+  padding:6px 0 6px 24px;
+  margin:26px 0;
+  font-family:var(--serif);
+  font-size:clamp(16px,2vw,20px);
+  line-height:1.9;color:var(--brown);
+}
+.heritage-list{
+  list-style:none;margin:26px 0 0;padding:0;
+  display:grid;gap:14px;
+}
+.heritage-list li{
+  display:flex;gap:14px;align-items:flex-start;
+  font-size:14.5px;color:var(--ink-2);
+}
+.heritage-list li::before{
+  content:"";flex:none;width:7px;height:7px;margin-top:10px;
+  background:var(--amber);border-radius:1px;transform:rotate(45deg);
+}
+.heritage-card{
+  position:relative;
+  padding:clamp(28px,4vw,44px);
+  border-radius:22px;
+  background:linear-gradient(160deg,#4a2213,#2a1108);
+  color:#f2e4d2;
+  box-shadow:0 30px 60px -34px rgba(42,17,8,.9);
+  overflow:hidden;
+}
+.heritage-card::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(80% 60% at 80% 0%, rgba(201,138,65,.26), transparent 62%);
+}
+.heritage-card > *{position:relative;}
+.seal{
+  width:92px;height:92px;
+  border:2px solid var(--seal);border-radius:8px;
+  color:var(--seal);
+  display:grid;place-items:center;text-align:center;
+  font-family:var(--serif);font-size:19px;line-height:1.2;letter-spacing:.12em;
+  transform:rotate(-7deg);
+  margin-bottom:26px;
+  background:rgba(184,72,47,.06);
+}
+.heritage-card h3{
+  font-size:22px;color:#f7ead8;margin:0 0 16px;letter-spacing:.08em;
+}
+.heritage-card p{font-size:14px;color:rgba(242,228,210,.74);line-height:1.95;margin:0 0 14px;}
+.heritage-meta{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+  margin-top:26px;padding-top:24px;
+  border-top:1px solid rgba(242,228,210,.16);
+}
+.heritage-meta div b{
+  display:block;font-family:var(--serif);font-size:17px;color:#f0d9b5;
+  margin-bottom:4px;letter-spacing:.06em;
+}
+.heritage-meta div span{font-size:11.5px;letter-spacing:.14em;color:rgba(242,228,210,.5);}
+
+/* ============ 跨文化叙事 ============ */
+.translate-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:20px;
+}
+.t-card{
+  padding:28px 26px;
+  border-radius:var(--radius);
+  border:1px solid var(--line);
+  background:#fff;
+  transition:transform .35s, box-shadow .35s;
+}
+.t-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+.t-term{
+  font-family:var(--serif);font-size:22px;color:var(--brown-deep);
+  letter-spacing:.1em;margin:0 0 20px;
+  padding-bottom:16px;border-bottom:1px dashed var(--line);
+}
+.t-row{margin-bottom:16px;}
+.t-tag{
+  display:inline-block;font-size:10.5px;letter-spacing:.16em;
+  padding:3px 10px;border-radius:4px;margin-bottom:8px;font-weight:700;
+}
+.t-bad{background:rgba(184,72,47,.1);color:var(--seal);}
+.t-good{background:rgba(168,133,63,.13);color:var(--gold);}
+.t-text{
+  font-size:13.5px;line-height:1.85;color:var(--ink-2);margin:0;
+  font-family:"Georgia","Times New Roman",serif;
+}
+.t-note{
+  font-size:12.5px;color:var(--ink-2);line-height:1.8;margin:18px 0 0;
+  padding-top:16px;border-top:1px solid var(--line);
+}
+.t-note b{color:var(--brown);}
+
+/* ============ 数据区 ============ */
+.data-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.data-cell{
+  background:var(--paper);
+  padding:34px 26px;
+  text-align:center;
+  transition:background .35s;
+}
+.data-cell:hover{background:#fff;}
+.data-cell b{
+  display:block;font-family:var(--serif);
+  font-size:clamp(30px,4vw,44px);line-height:1.1;
+  color:var(--brown);
+}
+.data-cell b i{font-style:normal;font-size:.42em;margin-left:3px;color:var(--gold);}
+.data-cell span{
+  display:block;margin-top:10px;font-size:12px;
+  letter-spacing:.16em;color:var(--ink-2);
+}
+.data-foot{
+  margin-top:26px;font-size:12px;color:var(--ink-2);line-height:1.9;
+  padding:18px 22px;border-radius:12px;
+  background:rgba(168,133,63,.07);
+  border:1px solid rgba(168,133,63,.18);
+}
+.data-foot b{color:var(--brown);}
+
+/* ============ 页脚 ============ */
+.footer{
+  background:linear-gradient(165deg,#2a1108,#1c0b05);
+  color:rgba(242,228,210,.62);
+  padding:clamp(48px,7vw,80px) 0 36px;
+}
+.footer-top{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:clamp(28px,4vw,56px);
+  padding-bottom:40px;
+  border-bottom:1px solid rgba(242,228,210,.12);
+}
+.footer h4{
+  font-size:14px;color:#f0d9b5;letter-spacing:.16em;
+  margin:0 0 18px;
+}
+.footer p{font-size:13px;line-height:1.95;margin:0 0 12px;}
+.footer ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+.footer li{font-size:13px;}
+.footer li a{transition:color .25s;}
+.footer li a:hover{color:#f0d9b5;}
+.footer-brand{
+  display:flex;align-items:center;gap:12px;margin-bottom:18px;
+}
+.footer-brand .brand-mark{box-shadow:none;}
+.footer-brand b{
+  font-family:var(--serif);font-size:18px;color:#f7ead8;letter-spacing:.12em;
+}
+.footer-bottom{
+  padding-top:26px;
+  display:flex;flex-wrap:wrap;gap:12px;
+  justify-content:space-between;align-items:center;
+  font-size:11.5px;letter-spacing:.06em;
+  color:rgba(242,228,210,.4);
+}
+.footer-bottom em{font-style:normal;color:rgba(201,138,65,.75);}
+
+/* ============ 动效 ============ */
+.reveal{
+  opacity:0;transform:translateY(26px);
+  transition:opacity .85s cubic-bezier(.2,.7,.2,1), transform .85s cubic-bezier(.2,.7,.2,1);
+  will-change:opacity,transform;
+}
+.reveal.in{opacity:1;transform:none;}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .reveal{opacity:1;transform:none;transition:none;}
+  .scroll-cue::after{animation:none;}
+}
+
+/* ============ 响应式 ============ */
+@media (max-width:900px){
+  .heritage-grid{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+  .hero-stats-inner{grid-template-columns:repeat(2,1fr);}
+  .hero-stat:nth-child(3){border-left:0;padding-left:0;}
+  .hero-stat:nth-child(3),
+  .hero-stat:nth-child(4){border-top:1px solid rgba(247,237,224,.1);}
+  .scroll-cue{display:none;}
+}
+@media (max-width:620px){
+  .wrap{width:calc(100% - 36px);}
+  .hero-inner,.hero-stats-inner{width:calc(100% - 36px);}
+  .nav{padding:12px 18px;}
+  .brand-text em{display:none;}
+  .nav-links a{padding:6px 10px;font-size:13px;}
+  .hero{padding-top:110px;}
+  .hero-stat{padding:20px 14px;}
+  .footer-top{grid-template-columns:1fr;gap:32px;}
+  .tl-item{padding-left:28px;}
+  .heritage-meta{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- ==================== 导航 ==================== -->
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="返回顶部">
+    <span class="brand-mark">界</span>
+    <span class="brand-text">
+      <b>界中米醋</b>
+      <em>JIEZHONG</em>
+    </span>
+  </a>
+  <nav class="nav-links" aria-label="页面导航">
+    <a href="#history">源流</a>
+    <a href="#craft">工艺</a>
+    <a href="#series">产品</a>
+    <a href="#heritage">非遗</a>
+    <a href="#narrative">叙事</a>
+    <a href="#data">数据</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ==================== 首屏 ==================== -->
+<section class="hero" id="top">
+  <div class="hero-grain"></div>
+  <div class="hero-char" aria-hidden="true">醋</div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow">
+      <span class="dot"></span>
+      南阳市非物质文化遗产 · 河南老字号
+    </p>
+
+    <h1>界中<span>米醋</span></h1>
+    <p class="hero-sub">清康熙十一年（1672）始创 · 三百五十余年古法传承</p>
+    <p class="hero-en">Jiezhong Rice Vinegar · Nanyang, Henan · Since 1672</p>
+
+    <p class="hero-text">
+      白河故道，古井水冽。一缸米醋，要晒足三百个日头，经日晒夜露、冬捞冰，
+      方得酸香清正、醇而不涩。时间在这里不是成本，而是配方本身。
+    </p>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#craft">
+        查看古法工艺
+        <span aria-hidden="true">→</span>
+      </a>
+      <a class="btn btn-ghost" href="#narrative">跨文化叙事实验</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stats-inner">
+      <div class="hero-stat">
+        <b><span data-count="1672">0</span></b>
+        <span>始创年份</span>
+      </div>
+      <div class="hero-stat">
+        <b><span data-count="350">0</span><i>+</i></b>
+        <span>年传承</span>
+      </div>
+      <div class="hero-stat">
+        <b><span data-count="102">0</span><i>种</i></b>
+        <span>产品品种</span>
+      </div>
+      <div class="hero-stat">
+        <b><span data-count="8">0</span><i>大系列</i></b>
+        <span>产品矩阵</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">SCROLL</div>
+</section>
+
+<!-- ==================== 源流 ==================== -->
+<section class="section" id="history">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="sec-kicker">Origin &amp; Lineage</p>
+      <h2 class="sec-title">一脉酸香，三百五十年
+        <small>350 Years of Continuity</small>
+      </h2>
+      <p class="sec-desc">
+        界中米醋产自河南省南阳市宛城区瓦店镇界中村。这里地处白河故道，地下水位高、水质清冽，
+        为米醋的糖化与发酵提供了不可复制的水土条件。三百五十余年间，酿醋的陶缸、场院与手工技艺，
+        在这片土地上未曾中断。
+      </p>
+    </div>
+
+    <ol class="timeline" data-stagger>
+      <li class="tl-item reveal">
+        <span class="tl-year">1672 · 清康熙十一年</span>
+        <div class="tl-body">
+          <h3>界中醋坊始创</h3>
+          <p>取白河故道古井之水，以大米为料，沿古法酿醋。井水甘冽、米质饱满，是界中米醋风味体系的起点。</p>
+        </div>
+      </li>
+      <li class="tl-item reveal">
+        <span class="tl-year">清末民初</span>
+        <div class="tl-body">
+          <h3>酸香远播豫西南</h3>
+          <p>界中米醋沿官道与河道外销，成为南阳一带家喻户晓的地方名产，"界中醋"逐渐成为地域风味的代名词。</p>
+        </div>
+      </li>
+      <li class="tl-item reveal">
+        <span class="tl-year">2008</span>
+        <div class="tl-body">
+          <h3>非遗与老字号双认定</h3>
+          <p>界中米醋酿造技艺列入南阳市第一批市级非物质文化遗产名录；同年获评"河南老字号"，古法技艺获得制度性保护。</p>
+        </div>
+      </li>
+      <li class="tl-item reveal">
+        <span class="tl-year">当代</span>
+        <div class="tl-body">
+          <h3>古法工艺与现代生产并行</h3>
+          <p>在保留陶缸发酵、日晒夜露等核心工序的同时，企业逐步形成规模化生产能力，产品拓展至 8 大系列、100 余个品种。</p>
+        </div>
+      </li>
+      <li class="tl-item reveal">
+        <span class="tl-year">今天</span>
+        <div class="tl-body">
+          <h3>非遗的数字化叙事实验</h3>
+          <p>本页面即为一次面向青年群体与域外受众的传播尝试：把历史、工艺与翻译反思，组织成可被跨语言阅读的叙事结构。</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ==================== 工艺 ==================== -->
+<section class="section section-alt" id="craft">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="sec-kicker">Craftsmanship</p>
+      <h2 class="sec-title">古法六序，一步不可省
+        <small>Six Steps of Traditional Brewing</small>
+      </h2>
+      <p class="sec-desc">
+        界中米醋沿用传统固态发酵工艺。从选米到成醋，最短也要经过一个完整的四季循环。
+        其中"揉米搓醋"与"日晒夜露、冬捞冰"是最难被机器替代的两道人工环节，也是其风味区别于工业勾兑醋的根本所在。
+      </p>
+    </div>
+
+    <div class="craft-grid" data-stagger>
+      <article class="craft-card reveal">
+        <div class="craft-num">01</div>
+        <h3>选米 · 浸蒸</h3>
+        <p>精选当年新米，以古井水浸润一夜，木甑蒸至透而不烂——米粒完整，才能为后续发酵留出足够的呼吸空间。</p>
+      </article>
+
+      <article class="craft-card reveal">
+        <div class="craft-num">02</div>
+        <h3>摊凉 · 拌曲</h3>
+        <p>出甑摊晾至温热，手工拌入曲种。依靠环境中的自然菌群接种，曲香初起，这是风味层次的第一层底色。</p>
+      </article>
+
+      <article class="craft-card reveal">
+        <div class="craft-num">03</div>
+        <h3>揉米 · 搓醋</h3>
+        <p>沿用手工揉搓技艺，将米粒与曲料反复搓揉，令淀粉充分释放。这道工序全凭手感，是界中米醋最具身体性的技艺记忆。</p>
+      </article>
+
+      <article class="craft-card reveal">
+        <div class="craft-num">04</div>
+        <h3>陶缸 · 发酵</h3>
+        <p>入陶缸，先糖化、后酒化，再由醋酸菌完成固态发酵。缸温由人手把控，昼夜温差本身就是发酵节奏的一部分。</p>
+      </article>
+
+      <article class="craft-card reveal">
+        <div class="craft-num">05</div>
+        <h3>淋醋 · 取液</h3>
+        <p>发酵成熟的醋醅以清水套淋，头道原液澄澈微黄、酸香清正，是整缸醋中风味最饱满的部分。</p>
+      </article>
+
+      <article class="craft-card reveal">
+        <div class="craft-num">06</div>
+        <h3>日晒夜露 · 冬捞冰</h3>
+        <p>陶坛置于露天场院，白天日晒、夜间承露，冬季捞出表面结冰以浓缩醋液。经年陈贮，尖锐的酸转为圆润的醇。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 产品 ==================== -->
+<section class="section" id="series">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="sec-kicker">Product Series</p>
+      <h2 class="sec-title">从一缸原醋，到一桌日常
+        <small>From Cellar to Table</small>
+      </h2>
+      <p class="sec-desc">
+        以下为界中米醋主要产品方向的系列示意。不同年份、不同淋次的原醋，在酸度、色泽与香气上各有侧重，
+        对应从日常佐餐到节令馈赠的不同场景。
+      </p>
+    </div>
+
+    <div class="series-grid" data-stagger>
+      <article class="p-card reveal">
+        <div class="p-visual"><span>古法原醋</span></div>
+        <div class="p-body">
+          <h3>古法原醋</h3>
+          <p>头道淋出的原液，不勾兑、不添加，酸香清正，最能体现界中米醋的本味。</p>
+          <div class="p-tags"><i>头道淋</i><i>本味</i></div>
+        </div>
+      </article>
+
+      <article class="p-card reveal">
+        <div class="p-visual"><span>陈酿米醋</span></div>
+        <div class="p-body">
+          <h3>陈酿米醋</h3>
+          <p>经日晒夜露、冬捞冰陈贮一年以上，酸味圆润醇厚，色泽转为琥珀。</p>
+          <div class="p-tags"><i>陈贮一年+</i><i>醇厚</i></div>
+        </div>
+      </article>
+
+      <article class="p-card reveal">
+        <div class="p-visual"><span>年份陈醋</span></div>
+        <div class="p-body">
+          <h3>年份陈醋</h3>
+          <p>更长周期的陶坛陈贮，醋液浓稠挂壁，适合凉拌、蘸食与慢炖。</p>
+          <div class="p-tags"><i>长年陈贮</i><i>浓稠</i></div>
+        </div>
+      </article>
+
+      <article class="p-card reveal">
+        <div class="p-visual"><span>佐餐调味</span></div>
+        <div class="p-body">
+          <h3>佐餐调味系列</h3>
+          <p>面向日常餐桌的调味醋，酸度适中、口感柔和，适配饺子、凉菜与汤羹。</p>
+          <div class="p-tags"><i>日常</i><i>柔和</i></div>
+        </div>
+      </article>
+
+      <article class="p-card reveal">
+        <div class="p-visual"><span>节令礼盒</span></div>
+        <div class="p-body">
+          <h3>节令礼盒</h3>
+          <p>以非遗工艺与地方文化为设计语言的伴手礼，适合年节馈赠与城市文化输出。</p>
+          <div class="p-tags"><i>伴手礼</i><i>文化输出</i></div>
+        </div>
+      </article>
+
+      <article class="p-card reveal">
+        <div class="p-visual"><span>餐饮定制</span></div>
+        <div class="p-body">
+          <h3>餐饮定制</h3>
+          <p>为地方餐饮与特色菜品提供定制化调味方案，让非遗风味进入更具体的饮食场景。</p>
+          <div class="p-tags"><i>B 端</i><i>定制</i></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 非遗 ==================== -->
+<section class="section section-alt" id="heritage">
+  <div class="wrap">
+    <div class="heritage-grid">
+      <div class="reveal">
+        <p class="sec-kicker">Intangible Heritage</p>
+        <h2 class="sec-title">非遗不是一个称号，是一套还在运转的时间系统
+          <small>Living Heritage</small>
+        </h2>
+
+        <blockquote class="heritage-quote">
+          "老字号的困境往往不在产品，而在意义的生产——
+          当工艺的时间价值无法被翻译成消费者听得懂的语言，它就会被折叠成一个模糊的品类名词。"
+        </blockquote>
+
+        <p style="color:var(--ink-2);font-size:15px;">
+          界中米醋酿造技艺于 2008 年列入南阳市第一批市级非物质文化遗产名录。
+          与许多被"博物馆化"的非遗不同，界中米醋的技艺至今仍在生产现场运转：
+          陶缸还在场院里晒着，冬天的冰还要人工去捞。
+        </p>
+
+        <ul class="heritage-list">
+          <li><span><b>活态传承</b>：技艺依附于生产流程，而非展柜与图录。</span></li>
+          <li><span><b>地方性知识</b>：古井水、陶缸、场院朝向，共同构成不可迁移的风味条件。</span></li>
+          <li><span><b>时间成本</b>：最短一年陈贮，是产品属性，也是文化叙事的核心素材。</span></li>
+          <li><span><b>传播缺口</b>：对外译介长期停留在拼音直译，工艺内涵在跨语言中大量流失。</span></li>
+        </ul>
+      </div>
+
+      <aside class="heritage-card reveal">
+        <div class="seal">界中<br>古法</div>
+        <h3>三项认定，一条主线</h3>
+        <p>南阳市非物质文化遗产 · 河南老字号 · 国家地理标志性地方风味——三项认定背后，是同一条从未中断的酿造主线。</p>
+        <p>它们共同说明：界中米醋的价值不只在"酸"，更在"时间"与"地方"。</p>
+
+        <div class="heritage-meta">
+          <div>
+            <b>1672</b>
+            <span>始创年份</span>
+          </div>
+          <div>
+            <b>2008</b>
+            <span>非遗 / 老字号认定</span>
+          </div>
+          <div>
+            <b>≥ 1 年</b>
+            <span>最短陈酿周期</span>
+          </div>
+          <div>
+            <b>8 大系列</b>
+            <span>产品矩阵</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 跨文化叙事 ==================== -->
+<section class="section" id="narrative">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="sec-kicker">Cross-cultural Narrative</p>
+      <h2 class="sec-title">从"译名"到"叙事语法"
+        <small>Beyond Transliteration</small>
+      </h2>
+      <p class="sec-desc">
+        界中米醋的英文传播长期停留在拼音直译。直译完成了指称功能，却丢失了产地、时间与工艺三重信息。
+        以下三组对照，是本作品提出的"叙事化译法"实验——不是换一个更准的词，而是重建一套可被跨语言理解的意义结构。
+      </p>
+    </div>
+
+    <div class="translate-grid" data-stagger>
+      <article class="t-card reveal">
+        <p class="t-term">界中米醋</p>
+        <div class="t-row">
+          <span class="t-tag t-bad">现状 · 拼音直译</span>
+          <p class="t-text">Jiezhong Rice Vinegar</p>
+        </div>
+        <div class="t-row">
+          <span class="t-tag t-good">建议 · 叙事化译法</span>
+          <p class="t-text">Jiezhong Rice Vinegar — a rice vinegar aged at least one year in earthenware jars, brewed in Nanyang, Henan since 1672.</p>
+        </div>
+        <p class="t-note">
+          <b>问题所在：</b>"Rice Vinegar"在英文消费语境中是品类通名，不含任何品质或时间信号，无法传递 350 年的工艺纵深。
+        </p>
+      </article>
+
+      <article class="t-card reveal">
+        <p class="t-term">古法酿造</p>
+        <div class="t-row">
+          <span class="t-tag t-bad">现状 · 直译</span>
+          <p class="t-text">Traditional Brewing Method</p>
+        </div>
+        <div class="t-row">
+          <span class="t-tag t-good">建议 · 叙事化译法</span>
+          <p class="t-text">Slow-brewed in earthenware jars — sun by day, dew by night, for a full year.</p>
+        </div>
+        <p class="t-note">
+          <b>问题所在：</b>"Traditional"是一个被过度使用到失去信息量的形容词。具体化为"陶缸、日晒夜露、整年"，才能让读者形成画面。
+        </p>
+      </article>
+
+      <article class="t-card reveal">
+        <p class="t-term">冬捞冰</p>
+        <div class="t-row">
+          <span class="t-tag t-bad">现状 · 无对应译法</span>
+          <p class="t-text">—（跨语言中直接丢失）</p>
+        </div>
+        <div class="t-row">
+          <span class="t-tag t-good">建议 · 叙事化译法</span>
+          <p class="t-text">Winter Ice Removal — each winter, the frozen layer is lifted off the ageing vinegar to concentrate its flavour and body.</p>
+        </div>
+        <p class="t-note">
+          <b>问题所在：</b>这是一道极具辨识度的人工技艺，却因为找不到英文对应词而被整体省略。文化折扣往往就发生在这样的"沉默"里。
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 数据 ==================== -->
+<section class="section section-alt" id="data">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="sec-kicker">Data &amp; Evidence</p>
+      <h2 class="sec-title">数字里的界中米醋
+        <small>Key Figures</small>
+      </h2>
+      <p class="sec-desc">
+        以下数据整理自地方史志、政府公开名录、企业公开报道与企业内部调研资料，用于呈现界中米醋的规模、工艺与传播现状。
+      </p>
+    </div>
+
+    <div class="data-grid reveal">
+      <div class="data-cell">
+        <b><span data-count="350">0</span><i>+</i></b>
+        <span>年连续传承</span>
+      </div>
+      <div class="data-cell">
+        <b><span data-count="2">0</span><i>万吨/年</i></b>
+        <span>食醋年产能</span>
+      </div>
+      <div class="data-cell">
+        <b><span data-count="102">0</span><i>个</i></b>
+        <span>产品品种</span>
+      </div>
+      <div class="data-cell">
+        <b><span data-count="1">0</span><i>年+</i></b>
+        <span>最短陈酿周期</span>
+      </div>
+      <div class="data-cell">
+        <b><span data-count="156">0</span><i>人次</i></b>
+        <span>实地调研样本</span>
+      </div>
+    </div>
+
+    <p class="data-foot">
+      <b>数据说明：</b>传承年限、非遗与老字号认定信息据南阳市第一批市级非物质文化遗产名录（2008）及《宛城区志》（2000）；
+      产能与品种数据据企业公开报道（2026 年口径）整理，不同年份报道口径存在差异，此处不作品牌间横向比较；
+      调研人次为本作品实地走访、访谈与文本分析所覆盖的人次规模，消费者端未做概率抽样，相关结论为传播文本分析基础上的推演。
+    </p>
+  </div>
+</section>
+
+</main>
+
+<!-- ==================== 页脚 ==================== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <span class="brand-mark">界</span>
+          <b>界中米醋</b>
+        </div>
+        <p>
+          清康熙十一年（1672）始创于河南南阳，南阳市非物质文化遗产、河南老字号。
+          三百五十余年古法酿造，日晒夜露，冬捞冰，一缸米醋，晒足三百个日头。
+        </p>
+        <p style="font-size:12px;letter-spacing:.1em;color:rgba(242,228,210,.38);">
+          JIEZHONG RICE VINEGAR · NANYANG, HENAN · SINCE 1672
+        </p>
+      </div>
+
+      <div>
+        <h4>页面导航</h4>
+        <ul>
+          <li><a href="#history">源流 · 三百五十年</a></li>
+          <li><a href="#craft">工艺 · 古法六序</a></li>
+          <li><a href="#series">产品 · 系列示意</a></li>
+          <li><a href="#heritage">非遗 · 活态传承</a></li>
+          <li><a href="#narrative">叙事 · 跨文化译法</a></li>
+          <li><a href="#data">数据 · 关键指标</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>资料来源</h4>
+        <ul>
+          <li>《宛城区志》，南阳地方史志编纂委员会，2000</li>
+          <li>南阳市第一批市级非物质文化遗产名录，2008</li>
+          <li>《南都晨报》界中米醋发展纪实，2022</li>
+          <li>《南阳日报》"酸香界中"，2026</li>
+          <li>河南界中米醋生物科技发展有限公司调研资料</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>南阳师范学院第二十三届"张衡杯"大学生课外学术科技作品竞赛 · 数字展示原型</span>
+      <span><em>本页面为学术调研作品，非官方商业页面</em></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- 滚动进度条 ---------- */
+  var progress = document.getElementById('progress');
+  var nav = document.getElementById('nav');
+
+  function onScroll() {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var height = document.documentElement.scrollHeight - window.innerHeight;
+    var ratio = height > 0 ? scrollTop / height : 0;
+    progress.style.width = (ratio * 100) + '%';
+    nav.classList.toggle('scrolled', scrollTop > 40);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- 进场动效 ---------- */
+  var revealEls = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    var revealIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          revealIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    revealEls.forEach(function (el) { revealIO.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* ---------- 同组错峰延迟 ---------- */
+  document.querySelectorAll('[data-stagger]').forEach(function (group) {
+    Array.prototype.forEach.call(group.children, function (child, i) {
+      child.style.transitionDelay = Math.min(i * 80, 480) + 'ms';
+    });
+  });
+
+  /* ---------- 数字滚动 ---------- */
+  function formatNumber(value) {
+    return Math.round(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  function animateCount(el) {
+    var target = parseFloat(el.getAttribute('data-count')) || 0;
+    var duration = 1500;
+    var startTime = null;
+
+    function step(now) {
+      if (startTime === null) startTime = now;
+      var p = Math.min((now - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = formatNumber(target * eased);
+      if (p < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = formatNumber(target);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  var counters = document.querySelectorAll('[data-count]');
+
+  if ('IntersectionObserver' in window) {
+    var countIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(function (el) { countIO.observe(el); });
+  } else {
+    counters.forEach(function (el) {
+      el.textContent = formatNumber(parseFloat(el.getAttribute('data-count')) || 0);
+    });
+  }
+
+  /* ---------- 导航高亮 ---------- */
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+
+  function highlightNav() {
+    var pos = window.pageYOffset + window.innerHeight * 0.35;
+    var currentId = '';
+
+    sections.forEach(function (sec) {
+      if (sec.offsetTop <= pos) currentId = sec.id;
+    });
+
+    navLinks.forEach(function (link) {
+      var href = link.getAttribute('href').replace('#', '');
+      link.classList.toggle('active', href === currentId);
+    });
+  }
+
+  window.addEventListener('scroll', highlightNav, { passive: true });
+  highlightNav();
+})();
+</script>
+
+</body>
+</html>
