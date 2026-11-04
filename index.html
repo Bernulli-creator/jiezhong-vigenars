@@ -1050,6 +1050,8 @@ p{margin:0 0 1em;}
     <div class="footer-bottom">
       <span>南阳师范学院第二十三届"张衡杯"大学生课外学术科技作品竞赛 · 数字展示原型</span>
       <span><em>本页面为学术调研作品，非官方商业页面</em></span>
+      <span id="site-uptime">本站已稳定运行 —</span>
+      <span>本站浏览量 <span id="site-pv">—</span> 次</span>
     </div>
   </div>
 </footer>
@@ -1160,6 +1162,53 @@ p{margin:0 0 1em;}
 
   window.addEventListener('scroll', highlightNav, { passive: true });
   highlightNav();
+
+  /* ---------- 站点稳定运行时长（精确到秒） ---------- */
+  // 请把下面的时间改成你的真实上线时间
+  var SITE_START = new Date('2025-01-01T00:00:00+08:00').getTime();
+  var uptimeEl = document.getElementById('site-uptime');
+
+  function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function renderUptime() {
+    if (!uptimeEl) return;
+    var diff = Math.max(0, Math.floor((Date.now() - SITE_START) / 1000));
+    var d = Math.floor(diff / 86400);
+    var h = Math.floor(diff % 86400 / 3600);
+    var m = Math.floor(diff % 3600 / 60);
+    var s = diff % 60;
+    uptimeEl.textContent = '本站已稳定运行 ' + d + ' 天 ' + pad2(h) + ':' + pad2(m) + ':' + pad2(s);
+  }
+
+  renderUptime();
+  setInterval(renderUptime, 1000);
+
+  // 后台标签页定时器会被浏览器节流，切回前台时立即校正一次
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) renderUptime();
+  });
+
+  /* ---------- 浏览量 ---------- */
+  // 说明：以下为纯前端 localStorage 方案，只统计"当前浏览器"的访问次数，
+  // 不等于全站真实 PV。需要真实全站统计请看下方注释。
+  var pvEl = document.getElementById('site-pv');
+  try {
+    var PV_KEY = 'jz_site_pv';
+    var pv = parseInt(localStorage.getItem(PV_KEY) || '0', 10) + 1;
+    localStorage.setItem(PV_KEY, String(pv));
+    if (pvEl) pvEl.textContent = pv.toLocaleString('en-US');
+  } catch (e) {
+    if (pvEl) pvEl.textContent = '—';
+  }
+
+  /*
+   * 如需真实全站浏览量，请：
+   * 1. 删除上面 localStorage 那一整段；
+   * 2. 把页脚中的 <span id="site-pv">—</span> 替换为
+   *    <span id="busuanzi_value_site_pv">—</span>
+   * 3. 在 </body> 前引入：
+   *    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"><\/script>
+   */
 })();
 </script>
 
